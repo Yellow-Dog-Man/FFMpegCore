@@ -94,9 +94,9 @@ public class GraphicsCaptureOptions
             
         switch (OutputFormat)
         {
-            case GfxCaptureOutputFormat.BGRA_8bit: str.Append(":output_format=8bit"); break;
-            case GfxCaptureOutputFormat.X2BGR10_10bit: str.Append(":output_format=10bit"); break;
-            case GfxCaptureOutputFormat.RGBAF16_16bit: str.Append(":output_format=16bit"); break;
+            case GfxCaptureOutputFormat.BGRA_8bit: str.Append(":output_fmt=8bit"); break;
+            case GfxCaptureOutputFormat.X2BGR10_10bit: str.Append(":output_fmt=10bit"); break;
+            case GfxCaptureOutputFormat.RGBAF16_16bit: str.Append(":output_fmt=16bit"); break;
         }
     }
 }
