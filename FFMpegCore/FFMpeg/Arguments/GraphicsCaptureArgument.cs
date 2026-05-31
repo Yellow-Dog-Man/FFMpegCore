@@ -104,7 +104,7 @@ public class GraphicsCaptureOptions
 /// <summary>
 ///     Represents gfxcapture filter
 /// </summary>
-public class GraphicsCaptureArgument : IVideoFilterArgument
+public class GraphicsCaptureArgument : IComplexVideoFilterArgument
 {
     public readonly int? MonitorIndex;
     public readonly ulong? MonitorHandle;

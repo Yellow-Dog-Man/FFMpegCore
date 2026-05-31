@@ -30,7 +30,10 @@ public class VideoFiltersArgument : IArgument
                 return string.IsNullOrEmpty(arg.Key) ? escapedValue : $"{arg.Key}={escapedValue}";
             });
 
-        return $"-vf \"{string.Join(", ", arguments)}\"";
+        var requiresComplex = Options.Arguments.Any(o => o is IComplexVideoFilterArgument);
+        var arg = requiresComplex ? "filter_complex" : "vf";
+
+        return $"-{arg} \"{string.Join(", ", arguments)}\"";
     }
 }
 
@@ -38,6 +41,11 @@ public interface IVideoFilterArgument
 {
     string Key { get; }
     string Value { get; }
+}
+
+public interface IComplexVideoFilterArgument : IVideoFilterArgument
+{
+    
 }
 
 public class VideoFilterOptions
