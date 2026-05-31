@@ -58,6 +58,11 @@ public sealed class FFMpegArguments : FFMpegArgumentsBase
         return new FFMpegArguments().WithInput(new InputPipeArgument(sourcePipe), addArguments);
     }
 
+    public static FFMpegArguments FromNoInput()
+    {
+        return new FFMpegArguments();
+    }
+
     public FFMpegArguments WithGlobalOptions(Action<FFMpegGlobalArguments> configureOptions)
     {
         configureOptions(_globalArguments);

@@ -94,6 +94,30 @@ public class VideoFilterOptions
         return WithArgument(new PadArgument(padOptions));
     }
 
+    public VideoFilterOptions CaptureMonitor(int monitorIndex, GraphicsCaptureOptions options)
+    {
+        return WithArgument(new GraphicsCaptureArgument(options, monitorIndex: monitorIndex));
+    }
+    
+    public VideoFilterOptions CaptureMonitor(ulong monitorHandle, GraphicsCaptureOptions options)
+    {
+        return WithArgument(new GraphicsCaptureArgument(options, monitorHandle: monitorHandle));
+    }
+    public VideoFilterOptions CaptureWindowWithTitle(string windowTitle, GraphicsCaptureOptions options)
+    {
+        return WithArgument(new GraphicsCaptureArgument(options, windowTitle: windowTitle));
+    }
+    
+    public VideoFilterOptions CaptureWindowWithExe(string windowExe, GraphicsCaptureOptions options)
+    {
+        return WithArgument(new GraphicsCaptureArgument(options, windowExe: windowExe));
+    }
+    
+    public VideoFilterOptions CaptureWindowWithHandle(ulong windowHandle, GraphicsCaptureOptions options)
+    {
+        return WithArgument(new GraphicsCaptureArgument(options, windowHandle: windowHandle));
+    }
+
     private VideoFilterOptions WithArgument(IVideoFilterArgument argument)
     {
         Arguments.Add(argument);
