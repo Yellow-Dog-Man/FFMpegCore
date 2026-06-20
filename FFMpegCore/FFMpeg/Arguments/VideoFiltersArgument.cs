@@ -77,6 +77,11 @@ public class VideoFilterOptions
         return WithArgument(new SetMirroringArgument(mirroring));
     }
 
+    public VideoFilterOptions ForceFPS(int fps)
+    {
+        return WithArgument(new FPSArgument(fps));
+    }
+
     public VideoFilterOptions DrawText(DrawTextOptions drawTextOptions)
     {
         return WithArgument(new DrawTextArgument(drawTextOptions));
