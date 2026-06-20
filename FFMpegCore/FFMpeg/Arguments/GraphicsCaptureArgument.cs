@@ -10,6 +10,8 @@ public class GraphicsCaptureOptions
     public readonly ResizeMode ResizeMode;
     
     public readonly ScaleMode ScaleMode;
+
+    public readonly int? MaxFramerate;
     
     public readonly bool PremultipliedAlpha;
 
@@ -27,6 +29,7 @@ public class GraphicsCaptureOptions
     public GraphicsCaptureOptions(Size size = default,
         ResizeMode resizeMode = ResizeMode.Crop,
         ScaleMode scaleMode = ScaleMode.Bilinear,
+        int? maxFramerate = null,
         bool premultipliedAlpha = false,
         int? cropLeft = null,
         int? cropTop = null,
@@ -40,6 +43,7 @@ public class GraphicsCaptureOptions
         Size = size;
         ResizeMode = resizeMode;
         ScaleMode = scaleMode;
+        MaxFramerate = maxFramerate;
         
         PremultipliedAlpha = premultipliedAlpha;
         
@@ -72,6 +76,9 @@ public class GraphicsCaptureOptions
             case ResizeMode.Scale: str.Append(":resize_mode=scale"); break;
             case ResizeMode.ScaleAspect: str.Append(":resize_mode=scale_aspect"); break;
         }
+
+        if (MaxFramerate != null)
+            str.Append($":max_framerate={MaxFramerate.Value}");
             
         if(PremultipliedAlpha)
             str.Append(":premultiplied=1");
