@@ -16,6 +16,7 @@
     <PackageTags>ffmpeg ffprobe convert video audio mediafile resize analyze muxing</PackageTags>
     <Authors>Malte Rosenbjerg, Vlad Jerca, Max Bagryantsev</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageId>YellowDogMan.FFMpegCore</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
