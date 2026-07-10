@@ -30,10 +30,16 @@ public class RawWriteableAudioPipeSource : IPipeSource
     public string Format => BitConverter.IsLittleEndian ? "f32le" : "f32be";
     public uint SampleRate { get; set; } = 8000;
     public uint Channels { get; set; } = 1;
+    public bool UseWallClock { get; set; } = false;
 
     public string GetStreamArguments()
     {
-        return $"-f {Format} -ar {SampleRate} -ac {Channels}";
+        var args = $"-f {Format} -ar {SampleRate} -ac {Channels}";
+
+        if (UseWallClock)
+            args += " -use_wallclock_as_timestamps 1";
+
+        return args;
     }
 
     public void WriteAudioData(ReadOnlySpan<float> data)
