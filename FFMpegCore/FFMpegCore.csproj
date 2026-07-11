@@ -3,7 +3,6 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <Description>A .NET Standard FFMpeg/FFProbe wrapper for easily integrating media analysis and conversion into your .NET applications</Description>
-    <PackageVersion>5.4.0</PackageVersion>
     <PackageOutputPath>../nupkg</PackageOutputPath>
     <PackageReleaseNotes>
       - Fixed exception thrown on cancelling ffprobe analysis - by snechaev
