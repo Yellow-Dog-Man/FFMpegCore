@@ -88,6 +88,16 @@ public class FFMpegArgumentOptions : FFMpegArgumentsBase
         return WithArgument(new DisableChannelArgument(channel));
     }
 
+    public FFMpegArgumentOptions CopyTimestamps()
+    {
+        return WithArgument(new CopyTimestampsArgument());
+    }
+
+    public FFMpegArgumentOptions StartAtZero()
+    {
+        return WithArgument(new StartAtZeroArgument());
+    }
+
     public FFMpegArgumentOptions WithDuration(TimeSpan? duration)
     {
         return WithArgument(new DurationArgument(duration));
