@@ -131,6 +131,18 @@ public class VideoFilterOptions
         return WithArgument(new GraphicsCaptureArgument(options, windowHandle: windowHandle));
     }
 
+    public VideoFilterOptions SetTimebaseToDefault() => SetTimebase("AVTB");
+
+    public VideoFilterOptions SetTimebase(string expression)
+    {
+        return WithArgument(new SetTimebaseArgument(expression));
+    }
+
+    public VideoFilterOptions SetPTS(string expression)
+    {
+        return WithArgument(new SetPtsArgument(expression));
+    }
+
     private VideoFilterOptions WithArgument(IVideoFilterArgument argument)
     {
         Arguments.Add(argument);
