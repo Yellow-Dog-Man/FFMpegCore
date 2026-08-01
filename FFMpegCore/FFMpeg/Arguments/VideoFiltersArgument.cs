@@ -148,6 +148,11 @@ public class VideoFilterOptions
         return WithArgument(new HardwareDownloadArgument());
     }
 
+    public VideoFilterOptions Format(string format)
+    {
+        return WithArgument(new FormatArgument(format));
+    }
+
     private VideoFilterOptions WithArgument(IVideoFilterArgument argument)
     {
         Arguments.Add(argument);
