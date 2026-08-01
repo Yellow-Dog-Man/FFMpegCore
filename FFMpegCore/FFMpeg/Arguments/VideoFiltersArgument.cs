@@ -143,6 +143,11 @@ public class VideoFilterOptions
         return WithArgument(new SetPtsArgument(expression));
     }
 
+    public VideoFilterOptions HardwareDownload()
+    {
+        return WithArgument(new HardwareDownloadArgument());
+    }
+
     private VideoFilterOptions WithArgument(IVideoFilterArgument argument)
     {
         Arguments.Add(argument);
