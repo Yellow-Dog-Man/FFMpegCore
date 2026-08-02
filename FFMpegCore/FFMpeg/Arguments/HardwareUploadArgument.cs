@@ -16,5 +16,5 @@ public class HardwareUploadArgument : IVideoFilterArgument
     }
 
     public string Key => string.IsNullOrEmpty(Target) ? "" : "hwupload";
-    public string Value => string.IsNullOrEmpty(Target) ? "hwdownload" : (Target ?? "");
+    public string Value => string.IsNullOrEmpty(Target) ? "hwdownload" : $"{Target}";
 }
