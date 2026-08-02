@@ -8,9 +8,9 @@ namespace FFMpegCore.Arguments;
 /// </summary>
 public class HardwareUploadArgument : IVideoFilterArgument
 {
-    public readonly string? Target;
+    public readonly string Target;
 
-    public HardwareUploadArgument(string? target)
+    public HardwareUploadArgument(string target)
     {
         Target = target;
     }
