@@ -148,6 +148,11 @@ public class VideoFilterOptions
         return WithArgument(new HardwareDownloadArgument());
     }
 
+    public VideoFilterOptions HardwareUpload(string? target = null)
+    {
+        return WithArgument(new HardwareUploadArgument(target));
+    }
+
     public VideoFilterOptions Format(string format)
     {
         return WithArgument(new FormatArgument(format));
