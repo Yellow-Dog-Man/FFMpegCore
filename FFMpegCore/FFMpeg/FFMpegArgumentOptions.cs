@@ -133,6 +133,16 @@ public class FFMpegArgumentOptions : FFMpegArgumentsBase
         return WithArgument(new ThreadsArgument(threads));
     }
 
+    public FFMpegArgumentOptions WithTimeout(int timeoutMicroseconds)
+    {
+        return WithArgument(new TimeoutArgument(timeoutMicroseconds));
+    }
+
+    public FFMpegArgumentOptions WithTimeout(TimeSpan timespan)
+    {
+        return WithArgument(new TimeoutArgument(timespan));
+    }
+
     public FFMpegArgumentOptions WithVideoCodec(Codec videoCodec)
     {
         return WithArgument(new VideoCodecArgument(videoCodec));
