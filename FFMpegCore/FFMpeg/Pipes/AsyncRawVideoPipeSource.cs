@@ -10,8 +10,13 @@ public class AsyncRawVideoPipeSource : IPipeSource
 {
     private readonly IAsyncEnumerator<IVideoFrame> _framesEnumerator;
 
-    public AsyncRawVideoPipeSource(IAsyncEnumerable<IVideoFrame> framesEnumerator)
+    public AsyncRawVideoPipeSource(string streamFormat, int width, int height, double frameRate, IAsyncEnumerable<IVideoFrame> framesEnumerator)
     {
+        StreamFormat = streamFormat;
+        Width = width;
+        Height = height;
+        FrameRate = frameRate;
+
         _framesEnumerator = framesEnumerator.GetAsyncEnumerator();
     }
 
