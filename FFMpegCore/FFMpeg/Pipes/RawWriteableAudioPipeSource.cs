@@ -20,6 +20,7 @@ public class RawWriteableAudioPipeSource : IPipeSource
     object _lock = new();
 
     AsyncAutoResetEvent _event;
+    bool _completed;
     
     public RawWriteableAudioPipeSource(int defaultBufferSize = 16384)
     {
@@ -103,6 +104,17 @@ public class RawWriteableAudioPipeSource : IPipeSource
         _event.Set();
     }
 
+    public void Complete()
+    {
+        // Signal that the data has completed
+        _completed = true;
+
+        // Wake up the reading thread
+        // If there's any data still, it'll be drained
+        // Otherwise it'll complete
+        _event.Set();
+    }
+
     int Read(Span<float> targetBuffer)
     {
         if(_count == 0)
@@ -131,9 +143,9 @@ public class RawWriteableAudioPipeSource : IPipeSource
     public async Task WriteAsync(Stream outputStream, CancellationToken cancellationToken)
     {
         // We keep a local buffer in this method for reading the data from the ciruclar buffer
-        // This is so we don't have to keep clock on the ciruclar buffer while IO is performing
+        // This is so we don't have to keep lock on the ciruclar buffer while IO is performing
         // We also keep this one as byte buffer, because that's what the output stream accepts
-        var buffer = new byte[16384 * sizeof(float)];
+        var buffer = new byte[_buffer.Length * sizeof(float)];
         
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -146,6 +158,10 @@ public class RawWriteableAudioPipeSource : IPipeSource
                 await outputStream.WriteAsync(buffer, 0, read * sizeof(float), cancellationToken).ConfigureAwait(false);
             else
             {
+                // Once we have drained all the data, break out of the loop when this is completed
+                if (_completed)
+                    break;
+
                 // We didn't get any data, so we will wait for an event to get new data to write
                 // If we read data, we will try again immediately, to fully drain the buffer
                 await _event.WaitAsync(cancellationToken).ConfigureAwait(false);
