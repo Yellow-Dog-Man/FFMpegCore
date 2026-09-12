@@ -30,7 +30,7 @@ public abstract class PipeArgument
                 throw new InvalidOperationException("Pipe already has been opened");
             }
 
-            Pipe = new NamedPipeServerStream(PipeName, _direction, 1, PipeTransmissionMode.Byte, PipeOptions.None);
+            Pipe = new NamedPipeServerStream(PipeName, _direction, 1, PipeTransmissionMode.Byte, PipeOptions.WriteThrough);
         }
     }
 
