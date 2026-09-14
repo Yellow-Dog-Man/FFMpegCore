@@ -53,9 +53,9 @@ public sealed class FFMpegArguments : FFMpegArgumentsBase
         return new FFMpegArguments().WithInput(new InputDeviceArgument(device), addArguments);
     }
 
-    public static FFMpegArguments FromPipeInput(IPipeSource sourcePipe, Action<FFMpegArgumentOptions>? addArguments = null)
+    public static FFMpegArguments FromPipeInput(IPipeSource sourcePipe, Action<FFMpegArgumentOptions>? addArguments = null, int bufferSize = 0)
     {
-        return new FFMpegArguments().WithInput(new InputPipeArgument(sourcePipe), addArguments);
+        return new FFMpegArguments().WithInput(new InputPipeArgument(sourcePipe, bufferSize), addArguments);
     }
 
     public static FFMpegArguments FromNoInput()
@@ -104,9 +104,9 @@ public sealed class FFMpegArguments : FFMpegArgumentsBase
         return WithInput(new InputDeviceArgument(device), addArguments);
     }
 
-    public FFMpegArguments AddPipeInput(IPipeSource sourcePipe, Action<FFMpegArgumentOptions>? addArguments = null)
+    public FFMpegArguments AddPipeInput(IPipeSource sourcePipe, Action<FFMpegArgumentOptions>? addArguments = null, int bufferSize = 0)
     {
-        return WithInput(new InputPipeArgument(sourcePipe), addArguments);
+        return WithInput(new InputPipeArgument(sourcePipe, bufferSize), addArguments);
     }
 
     public FFMpegArguments AddMetaData(string content, Action<FFMpegArgumentOptions>? addArguments = null)

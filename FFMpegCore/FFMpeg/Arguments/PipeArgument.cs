@@ -7,12 +7,16 @@ namespace FFMpegCore.Arguments;
 public abstract class PipeArgument
 {
     private readonly PipeDirection _direction;
+    private readonly int _inBufferSize;
+    private readonly int _outBufferSize;
     private readonly object _pipeLock = new();
 
-    protected PipeArgument(PipeDirection direction)
+    protected PipeArgument(PipeDirection direction, int inBufferSize = 0, int outBufferSize = 0)
     {
         PipeName = PipeHelpers.GetUniquePipeName();
         _direction = direction;
+        _inBufferSize = inBufferSize;
+        _outBufferSize = outBufferSize;
     }
 
     private string PipeName { get; }
@@ -30,7 +34,8 @@ public abstract class PipeArgument
                 throw new InvalidOperationException("Pipe already has been opened");
             }
 
-            Pipe = new NamedPipeServerStream(PipeName, _direction, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
+            Pipe = new NamedPipeServerStream(PipeName, _direction, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous,
+                _inBufferSize, _outBufferSize);
         }
     }
 
