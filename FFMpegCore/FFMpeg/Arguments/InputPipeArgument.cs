@@ -10,7 +10,7 @@ public class InputPipeArgument : PipeArgument, IInputArgument
 {
     public readonly IPipeSource Writer;
 
-    public InputPipeArgument(IPipeSource writer) : base(PipeDirection.Out)
+    public InputPipeArgument(IPipeSource writer, int bufferSize = 0) : base(PipeDirection.Out, 0, bufferSize)
     {
         Writer = writer;
     }
