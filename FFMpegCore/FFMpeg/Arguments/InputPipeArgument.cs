@@ -15,7 +15,7 @@ public class InputPipeArgument : PipeArgument, IInputArgument
         Writer = writer;
     }
 
-    public override string Text => $"{Writer.GetStreamArguments()} -i \"{PipePath}\"";
+    public override string Text => $"{Writer.GetStreamArguments()} -i \"{PipePath}\"?pkt_size=16777216";
 
     protected override async Task ProcessDataAsync(CancellationToken token)
     {
