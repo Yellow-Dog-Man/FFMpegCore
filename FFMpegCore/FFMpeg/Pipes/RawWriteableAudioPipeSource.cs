@@ -73,31 +73,28 @@ public class RawWriteableAudioPipeSource : IPipeSource
             }
             
             // Write the new data
-            while (data.Length > 0)
+            // Compute new write position
+            int writePos = _offset + _count;
+            writePos %= _buffer.Length;
+
+            var maxToWrite = Math.Min(_buffer.Length - writePos, data.Length);
+
+            // We have to deal with a potential wrap around. Split the buffer appropriately
+            // We already ensured in the first part that there's enough free space in the buffer
+            // So we don't have to worry about overwriting data with the wrap around
+            var firstSlice = data.Slice(0, maxToWrite);
+            var secondSlice = data.Slice(maxToWrite);
+
+            firstSlice.CopyTo(_buffer.AsSpan(writePos, firstSlice.Length));
+
+            if(!secondSlice.IsEmpty)
             {
-                // Compute new write position
-                int writePos = _offset + _count;
-                int toWrite = Math.Min(_buffer.Length - writePos, data.Length);
-
-                if (toWrite <= 0)
-                {
-                    // This means we need to wrap around to the start of the buffer
-                    writePos = 0;
-                    // Write the rest of the data 
-                    // We already made sure earlier in the method that there's enough space to accomodate all the data
-                    // so this will not overwrite anything
-                    toWrite = data.Length; 
-                }
-
-                // Copy the data to the buffer
-                data.Slice(0, toWrite).CopyTo(_buffer.AsSpan(writePos, toWrite));
-
-                // Update the buffer to remainder slice
-                data = data.Slice(toWrite);
-
-                // Increase amount of data in the buffer by how much we just wrote
-                _count += toWrite;
+                // We wrap around, write the rest at the beginning
+                secondSlice.CopyTo(_buffer.AsSpan(0, secondSlice.Length));
             }
+
+            // Increase amount of data in the buffer by how much we just wrote
+            _count += data.Length;
         }
         
         // Wake up the reading thread to consume the data as soon as possible 
